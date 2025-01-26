@@ -1,23 +1,28 @@
 #include <stdio.h>
 #include <string.h>
 
+// Global variables
+char secretWord[20];
+char playerTries[26];
+int tries = 0;
+
 void printHead(){
     printf("*******************************\n");
     printf("* Welcome to the Handman Game *\n");
     printf("*******************************\n\n");
 }
 
-void guess(char playerTries[26], int* tries){
+void guess(){
     char playerGuess;
     scanf(" %c", &playerGuess);
 
-    playerTries[*tries] = playerGuess;
-    (*tries)++;
+    playerTries[tries] = playerGuess;
+    tries++;
 
     
 }
 
-int guessed(char letter, char playerTries[26], int tries){
+int guessed(char letter){
     int found = 0;
 
     for (int j = 0; j < tries; j++) {
@@ -31,10 +36,10 @@ int guessed(char letter, char playerTries[26], int tries){
 
 }
 
-void printGame(char secretWord[20], char playerTries[26], int tries){
+void printGame(){
     for (int i = 0; i < strlen(secretWord); i++) {
             
-            int found = guessed(secretWord[i],playerTries,tries);
+            int found = guessed(secretWord[i]);
             
             if (found) {
                 printf("%c ", secretWord[i]);
@@ -45,31 +50,25 @@ void printGame(char secretWord[20], char playerTries[26], int tries){
     printf("\n");
 }
 
-void chooseSecretWord(char secretWord[20]){
+void chooseSecretWord(){
     sprintf(secretWord, "MELAO");  
 }
 
 int main(){
 
-    char secretWord[20];
-
-    chooseSecretWord(secretWord);
-
     int hit = 0;
     int hanged = 0;
 
-    char playerTries[26];
-    int tries = 0;
+    chooseSecretWord();
 
     printHead();
 
     do {
 
-        printGame(secretWord, playerTries, tries);
+        printGame();
 
-        guess(playerTries, &tries);
+        guess();
 
     } while (!hit && !hanged);
     
-
 }
