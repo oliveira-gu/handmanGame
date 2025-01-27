@@ -4,7 +4,7 @@
 // Global variables
 char secretWord[20];
 char playerTries[26];
-int tries = 0;
+int numberOfGuesses = 0;
 
 void printHead(){
     printf("*******************************\n");
@@ -16,8 +16,8 @@ void guess(){
     char playerGuess;
     scanf(" %c", &playerGuess);
 
-    playerTries[tries] = playerGuess;
-    tries++;
+    playerTries[numberOfGuesses] = playerGuess;
+    numberOfGuesses++;
 
     
 }
@@ -25,7 +25,7 @@ void guess(){
 int guessed(char letter){
     int found = 0;
 
-    for (int j = 0; j < tries; j++) {
+    for (int j = 0; j < numberOfGuesses; j++) {
         if(playerTries[j] == letter) {
             found = 1;
             break;
@@ -54,11 +54,21 @@ void chooseSecretWord(){
     sprintf(secretWord, "MELAO");  
 }
 
+int hit(){
+    for (int i = 0; i < strlen(secretWord); i++){
+        if(!guessed(secretWord[i])){
+            return 0;
+        }
+    }
+    
+    return 1;
+}
+
 int hanged(){
 
     int mistakes = 0;
     
-    for (int i = 0; i < tries; i++){
+    for (int i = 0; i < numberOfGuesses; i++){
         int exists = 0;
 
         for (int j = 0; j < strlen(secretWord); j++){
@@ -78,8 +88,6 @@ int hanged(){
 
 int main(){
 
-    int hit = 0;
-
     chooseSecretWord();
 
     printHead();
@@ -90,6 +98,6 @@ int main(){
 
         guess();
 
-    } while (!hit && !hanged());
+    } while (!hit() && !hanged());
     
 }
