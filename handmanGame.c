@@ -54,10 +54,31 @@ void chooseSecretWord(){
     sprintf(secretWord, "MELAO");  
 }
 
+int hanged(){
+
+    int mistakes = 0;
+    
+    for (int i = 0; i < tries; i++){
+        int exists = 0;
+
+        for (int j = 0; j < strlen(secretWord); j++){
+            if (playerTries[i] == secretWord[j]){
+                exists = 1;
+                break;
+            }
+            
+        }
+        
+        if (!exists) mistakes++;
+        
+    }
+
+    return mistakes >= 5;
+}
+
 int main(){
 
     int hit = 0;
-    int hanged = 0;
 
     chooseSecretWord();
 
@@ -69,6 +90,6 @@ int main(){
 
         guess();
 
-    } while (!hit && !hanged);
+    } while (!hit && !hanged());
     
 }
