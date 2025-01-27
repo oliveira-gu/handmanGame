@@ -1,5 +1,18 @@
 #include <stdio.h>
 #include <string.h>
+#include "handmanGame.h"
+#include <time.h>
+#include <stdlib.h>
+
+// Functions signature
+void printHead();
+void guess();
+void printGame();
+void chooseSecretWord();
+int hit();
+int hanged();
+int guessed(char letter);
+
 
 // Global variables
 char secretWord[20];
@@ -51,7 +64,26 @@ void printGame(){
 }
 
 void chooseSecretWord(){
-    sprintf(secretWord, "MELAO");  
+    FILE* f;
+
+    f = fopen("words.txt", "r");
+    if (f == 0)
+    {
+        printf("Sorry, no database available\n\n");
+        exit(1);
+    }
+    
+    int numberOfWords;
+    fscanf(f, "%d", &numberOfWords);
+
+    srand(time(0));
+    int randomic = rand() % numberOfWords;
+    
+    for (int i = 0; i <= randomic; i++){
+        fscanf(f, "%s", secretWord);
+    }
+
+    fclose(f);  
 }
 
 int hit(){
