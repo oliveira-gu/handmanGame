@@ -6,3 +6,4 @@ int hit();
 int hanged();
 int guessed(char letter);
 void chooseWord();
+void addNewWord();

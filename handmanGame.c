@@ -53,6 +53,41 @@ void printGame(){
     printf("\n");
 }
 
+void addNewWord() {
+    
+    char wantToAdd;
+
+    printf("Do you want to add a new word to the game? (S/N)");
+    scanf(" %c", &wantToAdd);
+
+    if (wantToAdd == 'S' || wantToAdd == 's') {
+        char newWord[20];
+        printf("What is the new word? ");
+        scanf("%s", newWord);
+
+        FILE* f;
+
+        f = fopen("words.txt", "r+");
+        if (f == 0){
+            printf("Sorry, database no available\n\n");
+            exit(1);
+        }
+        
+        int quantity;
+        fscanf(f, "%d", &quantity);
+        quantity++;
+
+        fseek(f, 0, SEEK_SET);
+        fprintf(f, "%d", quantity);
+
+        fseek(f, 0, SEEK_END);
+        fprintf(f, "\n%s", newWord);
+
+        fclose(f);
+    }
+
+}
+
 void chooseSecretWord(){
     FILE* f;
 
@@ -121,5 +156,7 @@ int main(){
         guess();
 
     } while (!hit() && !hanged());
+
+    addNewWord();
     
 }
