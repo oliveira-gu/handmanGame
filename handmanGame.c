@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 // Global variables
-char secretWord[20];
+char secretWord[WORDSIZE];
 char playerTries[26];
 int numberOfGuesses = 0;
 
@@ -40,6 +40,22 @@ int guessed(char letter){
 }
 
 void printGame(){
+
+    int mistakes = wrongGuesses();
+
+    printf("  _______        \n");
+    printf(" |/      |       \n");
+    printf(" |      %c%c%c   \n", (mistakes >=1 ? '(' : ' '),
+    (mistakes >=1 ? '_' : ' '), (mistakes >=1 ? ')' : ' '));
+    printf(" |      %c%c%c   \n", (mistakes >= 3 ? '\\' : ' '),
+     (mistakes >= 2 ? '|': ' '), (mistakes >= 3 ? '/' : ' '));
+    printf(" |       %c      \n", (mistakes >= 2 ? '|': ' '));
+    printf(" |      %c%c     \n", (mistakes >= 4 ? '/' : ' '),
+     (mistakes >= 4 ? '\\' : ' '));
+    printf(" |               \n");
+    printf("_|___            \n");
+    printf("\n\n");
+    
     for (int i = 0; i < strlen(secretWord); i++) {
             
             int found = guessed(secretWord[i]);
@@ -61,7 +77,7 @@ void addNewWord() {
     scanf(" %c", &wantToAdd);
 
     if (wantToAdd == 'S' || wantToAdd == 's') {
-        char newWord[20];
+        char newWord[WORDSIZE];
         printf("What is the new word? ");
         scanf("%s", newWord);
 
@@ -121,8 +137,7 @@ int hit(){
     return 1;
 }
 
-int hanged(){
-
+int wrongGuesses(){
     int mistakes = 0;
     
     for (int i = 0; i < numberOfGuesses; i++){
@@ -137,10 +152,14 @@ int hanged(){
         }
         
         if (!exists) mistakes++;
-        
     }
 
-    return mistakes >= 5;
+    return mistakes;
+}
+
+int hanged(){
+
+    return wrongGuesses() >= 5;
 }
 
 int main(){
@@ -156,6 +175,12 @@ int main(){
         guess();
 
     } while (!hit() && !hanged());
+
+    if(hit()){
+        printf("YOU WON!\n\n");
+    }else{
+        printf("GAME OVER\n\n");
+    }
 
     addNewWord();
     
