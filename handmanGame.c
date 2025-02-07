@@ -4,16 +4,6 @@
 #include <time.h>
 #include <stdlib.h>
 
-// Functions signature
-void printHead();
-void guess();
-void printGame();
-void chooseSecretWord();
-int hit();
-int hanged();
-int guessed(char letter);
-
-
 // Global variables
 char secretWord[20];
 char playerTries[26];
@@ -92,7 +82,7 @@ int hit(){
             return 0;
         }
     }
-    
+     
     return 1;
 }
 
