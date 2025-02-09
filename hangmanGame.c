@@ -50,7 +50,7 @@ void printGame(){
     printf(" |      %c%c%c   \n", (mistakes >= 3 ? '\\' : ' '),
      (mistakes >= 2 ? '|': ' '), (mistakes >= 3 ? '/' : ' '));
     printf(" |       %c      \n", (mistakes >= 2 ? '|': ' '));
-    printf(" |      %c%c     \n", (mistakes >= 4 ? '/' : ' '),
+    printf(" |      %c %c     \n", (mistakes >= 4 ? '/' : ' '),
      (mistakes >= 4 ? '\\' : ' '));
     printf(" |               \n");
     printf("_|___            \n");
