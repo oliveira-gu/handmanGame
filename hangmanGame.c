@@ -11,7 +11,7 @@ int numberOfGuesses = 0;
 
 void printHead(){
     printf("*******************************\n");
-    printf("* Welcome to the Handman Game *\n");
+    printf("* Welcome to the Hangman Game *\n");
     printf("*******************************\n\n");
 }
 
@@ -55,6 +55,8 @@ void printGame(){
     printf(" |               \n");
     printf("_|___            \n");
     printf("\n\n");
+
+    printf("Enter a letter:\n\n");
     
     for (int i = 0; i < strlen(secretWord); i++) {
             
